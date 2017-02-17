@@ -3,6 +3,7 @@ import os
 import jinja2
 from google.appengine.ext import db
 
+
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
 
@@ -24,8 +25,8 @@ class Art(db.Model):
 
 class MainPage(Handler):
     def render_front(self, title="", art="", error=""):
-        arts = db.GqlQuery("SELECT * from art ORDER BY created DESC")
-        self.render("front.html", title=title, art=art, error=error)
+        arts = db.GqlQuery("SELECT * from Art ORDER BY created DESC")
+        self.render("front.html", title=title, art=art, error=error, arts=arts)
 
     def get(self):
         self.render_front()
